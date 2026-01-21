@@ -1,0 +1,100 @@
+{
+    "title": "Price Tracker - Books to Scrape",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "proxySettings": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Apify proxies (recommended) or none (will use free proxies)",
+            "editor": "proxy",
+            "prefill": { "useApifyProxy": false }
+        },
+        "mysql": {
+            "title": "MySQL Export (optional)",
+            "type": "object",
+            "editor": "schemaBased",
+            "description": "If provided, data will be exported to MySQL after the crawl.",
+            "properties": {
+                "host": {
+                    "title": "Host",
+                    "type": "string",
+                    "default": "localhost",
+                    "description": "MySQL server hostname or container name (e.g., mysqld_c)"
+                },
+                "port": {
+                    "title": "Port",
+                    "type": "integer",
+                    "default": 3306,
+                    "description": "MySQL server port"
+                },
+                "user": {
+                    "title": "Username",
+                    "type": "string",
+                    "description": "MySQL username"
+                },
+                "password": {
+                    "title": "Password",
+                    "type": "string",
+                    "editor": "textfield",
+                    "description": "MySQL password"
+                },
+                "database": {
+                    "title": "Database",
+                    "type": "string",
+                    "default": "testdb",
+                    "description": "MySQL database name"
+                },
+                "table": {
+                    "title": "Table name",
+                    "type": "string",
+                    "default": "books",
+                    "description": "Table to write/replace data into"
+                }
+            }
+        },
+        "postgres": {
+            "title": "PostgreSQL Export (optional)",
+            "type": "object",
+            "editor": "schemaBased",
+            "description": "If provided, data will be exported to PostgreSQL after the crawl.",
+            "properties": {
+                "host": {
+                    "title": "Host",
+                    "type": "string",
+                    "default": "localhost",
+                    "description": "PostgreSQL server hostname or container name (e.g., psqld_c)"
+                },
+                "port": {
+                    "title": "Port",
+                    "type": "integer",
+                    "default": 5432,
+                    "description": "PostgreSQL server port"
+                },
+                "user": {
+                    "title": "Username",
+                    "type": "string",
+                    "description": "PostgreSQL username"
+                },
+                "password": {
+                    "title": "Password",
+                    "type": "string",
+                    "editor": "textfield",
+                    "description": "PostgreSQL password"
+                },
+                "database": {
+                    "title": "Database",
+                    "type": "string",
+                    "default": "testdb",
+                    "description": "PostgreSQL database name"
+                },
+                "table": {
+                    "title": "Table name",
+                    "type": "string",
+                    "default": "books",
+                    "description": "Table to write/replace data into"
+                }
+            }
+        }
+    }
+}

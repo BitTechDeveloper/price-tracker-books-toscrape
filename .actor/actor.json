@@ -1,0 +1,12 @@
+{
+    "actorSpecification": 1,
+    "name": "price-tracker-books-toscrape",
+    "version": "0.1.0",
+    "buildTag": "latest",
+    "dockerfile": "./Dockerfile",
+    "readme": "./README.md",
+    "input": "./input_schema.json",
+    "defaultMemoryMbytes": "get(input, 'startUrls.length', 1) * 1024",
+    "minMemoryMbytes": 256,
+    "maxMemoryMbytes": 4096
+}

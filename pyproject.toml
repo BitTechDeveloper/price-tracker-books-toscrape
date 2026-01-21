@@ -1,0 +1,19 @@
+[project]
+name = "price-tracker-books-toscrape"
+version = "0.0.1"
+description = ""
+authors = [
+    {name = "Your Name",email = "you@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10,<4.0"
+dependencies = [
+    "crawlee[beautifulsoup,curl-impersonate]",
+    "apify",
+    "pandas>=2.3.3",
+    "openpyxl>=3.1.5",
+    "mysql-connector-python>=9.5.0",
+    "sqlalchemy>=2.0.45",
+    "psycopg2-binary>=2.9.11",
+]
+
