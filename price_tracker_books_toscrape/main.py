@@ -1,6 +1,7 @@
 import json
 import os
 
+
 import pandas as pd
 from apify import Actor
 from crawlee.crawlers import BeautifulSoupCrawler
@@ -9,8 +10,8 @@ from crawlee.proxy_configuration import ProxyConfiguration
 from crawlee.storages import Dataset
 from dotenv import load_dotenv
 
-from lib.db_export import export_to_mysql, export_to_postgresql, export_to_sqlite
-from lib.proxy_list import (
+from __lib.db_export import export_to_mysql, export_to_postgresql, export_to_sqlite
+from __lib.proxy_list import (
     proxy_list_from_free_proxy,
     proxy_list_from_free_proxy_anonymous,
     proxy_list_from_proxyscrape,
@@ -19,6 +20,10 @@ from lib.proxy_list import (
 from .routes import router
 
 load_dotenv()
+
+
+def maint():
+    return 2 + 2
 
 
 async def main() -> None:
