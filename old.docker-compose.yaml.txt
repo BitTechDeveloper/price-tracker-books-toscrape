@@ -1,0 +1,66 @@
+---
+services:
+  mysqld:
+    image: mysql:8.0-bookworm
+    restart: always
+    container_name: mysqld_c
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./data/mysql_data:/var/lib/mysql
+      - ./mysqld/init_db:/docker-entrypoint-initdb.d # Optional if you have init scripts
+    ports: [3306:3306]
+    healthcheck:
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - -h
+        - localhost
+        - -u
+        - ${MYSQL_USER}
+        - -p${MYSQL_PASSWORD}
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  mysql_client:
+    image: mysql:8.0-bookworm
+    container_name: mysql_client_c
+    depends_on:
+      mysqld:
+        condition: service_healthy
+    command: [sleep, infinity] # Keep alive for manual exec: docker exec -it mysql_client_c mysql -h mysqld_c -u ${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE}
+
+  psqld:
+    image: postgres:17-trixie
+    restart: always
+    container_name: psqld_c
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+    volumes:
+      - ./data/postgresql_data:/var/lib/postgresql/data
+      - ./psqld/init_db:/docker-entrypoint-initdb.d # Optional
+    ports: [5432:5432]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  psql_client:
+    image: postgres:17-trixie
+    container_name: psql_client_c
+    environment:
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      psqld:
+        condition: service_healthy
+    command: [sleep, infinity] # Manual exec: docker exec -it psql_client_c psql -h psqld_c -U ${POSTGRES_USER} -d ${POSTGRES_DB}

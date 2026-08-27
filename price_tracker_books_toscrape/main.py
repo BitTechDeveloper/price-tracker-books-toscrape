@@ -1,7 +1,6 @@
 import json
 import os
 
-
 import pandas as pd
 from apify import Actor
 from crawlee.crawlers import BeautifulSoupCrawler
@@ -22,8 +21,8 @@ from .routes import router
 load_dotenv()
 
 
-def maint():
-    return 2 + 2
+# def maint():
+#     return 2 + 2
 
 
 async def main() -> None:
@@ -88,14 +87,14 @@ async def main() -> None:
         # File exports
 
         if not Actor.is_at_home():
-            await crawler.export_data(path="data/result.csv")
-            await crawler.export_data(path="data/result.json", indent=4)
+            await crawler.export_data(path="__data/result.csv")
+            await crawler.export_data(path="__data/result.json", indent=4)
 
             dataset = await Dataset.open()
             data = await dataset.get_data()
 
             # Manual JSONL
-            with open("data/result.jsonl", "w", encoding="utf-8") as f:
+            with open("__data/result.jsonl", "w", encoding="utf-8") as f:
                 for item in data.items:
                     json.dump(item, f, ensure_ascii=False)
                     f.write("\n")
@@ -103,7 +102,7 @@ async def main() -> None:
             if data.items:
                 df = pd.DataFrame(data.items)
                 if not df.empty:
-                    df.to_excel("data/result.xlsx", index=False)
+                    df.to_excel("__data/result.xlsx", index=False)
 
                 # Database exports via separate functions
                 await export_to_sqlite(data.items)

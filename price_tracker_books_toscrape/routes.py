@@ -10,11 +10,11 @@ router = Router[BeautifulSoupCrawlingContext]()
 async def default_handler(context: BeautifulSoupCrawlingContext) -> None:
     """Default request handler."""
     context.log.info(f"Processing {context.request.url} ...")
-    title = context.soup.find("title")
-    data = {
-        "url": context.request.loaded_url,
-        "title": title.text if title else None,
-    }
+    # title = context.soup.find("title")
+    # data = {
+    #    "url": context.request.loaded_url,
+    #    "title": title.text if title else None,
+    # }
     # await context.push_data(data)
 
     # await context.enqueue_links(selector="li.next a")
@@ -59,7 +59,7 @@ async def detail_handler(context: BeautifulSoupCrawlingContext) -> None:
     rating_div = soup.find("p", class_=re.compile(r"^star-rating"))
     rating = None
     if rating_div:
-        classes = rating_div.get("class", [])
+        classes = rating_div.get("class", None)
         rating_str = next((c for c in classes if c in rating_map), None)
         if rating_str:
             rating = rating_map[rating_str]

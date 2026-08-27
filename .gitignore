@@ -1,4 +1,6 @@
 storage
+__data
+__data/*
 node_modules
 .venv
 .env
@@ -6,3 +8,4 @@ node_modules
 __pycache__/
 .storage/
 **/data/
+**/__data/

@@ -12,7 +12,7 @@ async def export_to_sqlite(data_items: list[dict]) -> None:
         return
 
     try:
-        conn = sqlite3.connect("data/result.sqlite")
+        conn = sqlite3.connect("__data/result.sqlite")
         cursor = conn.cursor()
 
         # Drop and recreate table
@@ -57,7 +57,7 @@ async def export_to_sqlite(data_items: list[dict]) -> None:
 async def export_to_mysql(data_items: list[dict], mysql_config: dict) -> None:
     """Export crawled data to MySQL using mysql.connector."""
     if not data_items or not mysql_config:
-        await Actor.log.info("Skipping MySQL export (no config or no data).")
+        Actor.log.info("Skipping MySQL export (no config or no data).")
         return
 
     try:
@@ -117,7 +117,7 @@ async def export_to_mysql(data_items: list[dict], mysql_config: dict) -> None:
 async def export_to_postgresql(data_items: list[dict], postgres_config: dict) -> None:
     """Export crawled data to PostgreSQL using psycopg2."""
     if not data_items or not postgres_config:
-        await Actor.log.info("Skipping PostgreSQL export (no config or no data).")
+        Actor.log.info("Skipping PostgreSQL export (no config or no data).")
         return
 
     try:
